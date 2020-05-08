@@ -1,0 +1,43 @@
+pipeline {
+    agent {
+        label "master"
+    }
+    stages {
+        stage("Install docker") {
+            steps {
+                script {
+                    def remote = [:]
+                    remote.name = 'ansible_server'
+                    remote.host = '3.82.232.208'
+                    remote.user = 'ubuntu'
+                    remote.password = 'devops@1996'
+                    remote.allowAnyHosts = true
+  
+                    sshCommand remote: remote, command: "cd /home/ubuntu/"
+                    sshCommand remote: remote, command: "ansible-playbook /home/ubuntu/docker-ansible/playbook.yml"
+                
+                    
+                    
+                }
+            }
+        }
+        stage("Install tomcat") {
+            steps {
+                script {
+                    def remote = [:]
+                    remote.name = 'ansible_server'
+                    remote.host = '3.82.232.208'
+                    remote.user = 'ubuntu'
+                    remote.password = 'devops@1996'
+                    remote.allowAnyHosts = true
+  
+                    sshCommand remote: remote, command: "cd /home/ubuntu/"
+                    sshCommand remote: remote, command: "ansible-playbook /home/ubuntu/tomcat-ansible/tomcat-setup.yml"
+                
+                    
+                    
+                }
+            }
+        }    
+    }
+}

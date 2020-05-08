@@ -1,0 +1,6 @@
+JENKINS PIPELINE TRIGGER...
+
+   options {
+        properties([pipelineTriggers([githubPush()])])
+        node { git url: 'https://github.com/devops5511996/hello-world.git', branch: 'master' }
+    }
